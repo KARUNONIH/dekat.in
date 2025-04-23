@@ -302,7 +302,7 @@ export default function MapView({ locations }) {
       <div
         ref={mapContainerRef}
         style={{
-          height: openMap ? "calc(100% - 120px)" : "300px",
+          height: openMap ? "calc(100% - 192px)" : "300px",
           width: "100%",
           transition: "height 0.3s ease-in-out",
           position: "relative",

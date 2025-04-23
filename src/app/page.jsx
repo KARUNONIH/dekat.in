@@ -92,7 +92,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="max-w-[480px] h-screen mx-auto overflow-y-auto bg-white shadow relative scrollbar-hide">
+    <div className="max-w-[480px] h-dvh mx-auto overflow-y-auto bg-white shadow relative scrollbar-hide">
       <div className="sticky top-0 bg-white z-[99999999999]">
       <TopNavbar />
         <Filter categoryOptions={categoryOptions} />
