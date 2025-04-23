@@ -1,7 +1,7 @@
 import React from "react";
 import { Clock, Star, ChevronRight } from "lucide-react";
 
-export default function Place({ locations }) {
+export default function Place({ locations, handleGetRoute }) {
   return (
     <div className="mb-20 mt-4">
       <h1 className="text-xl font-bold">Semua Lokasi</h1>
@@ -29,10 +29,10 @@ export default function Place({ locations }) {
               </div>
             </div>
 
-            <div className="flex  items-center gap-4">
+            <div className="flex items-center gap-4">
               <section>
                 <div className="text-white/90 font-medium mb-2">
-                  {location.distance || "700"} m
+                  {location.distance} km
                 </div>
                 <div className="flex items-center">
                   <Star
@@ -44,7 +44,9 @@ export default function Place({ locations }) {
                   <span className="font-bold">{location.rating}</span>
                 </div>
               </section>
-              <button>
+              <button
+                onClick={() => handleGetRoute(location)}
+              >
                 <ChevronRight className="text-2xl" />
               </button>
             </div>

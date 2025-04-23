@@ -2,14 +2,15 @@
 import { useState, useRef, useEffect } from "react";
 import { PiSlidersHorizontalBold } from "react-icons/pi";
 import { IoClose } from "react-icons/io5";
+import { useAtom } from "jotai";
+import { filterAtom } from "@/atoms/filterAtom";
 
 const filterItems = ["Near Me", "Category", "Price", "Rating", "Opening Hours"];
 
 export default function Filter({ categoryOptions }) {
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeFilters, setActiveFilters] = useState({});
+  const [filters, setFilters] = useAtom(filterAtom);
 
   const dropdownRef = useRef(null);
 
@@ -39,23 +40,30 @@ export default function Filter({ categoryOptions }) {
   };
 
   const handleSelectCategory = item => {
-    if (!selectedCategories.includes(item)) {
-      setSelectedCategories([...selectedCategories, item]);
+    if (!filters.categories.includes(item)) {
+      setFilters({
+        ...filters,
+        categories: [...filters.categories, item]
+      });
     }
   };
 
   const handleRemoveCategory = item => {
-    setSelectedCategories(selectedCategories.filter(i => i !== item));
+    setFilters({
+      ...filters,
+      categories: filters.categories.filter(i => i !== item)
+    });
   };
 
   const toggleFilter = item => {
     if (item === "Category") {
       toggleCategoryDropdown();
     } else {
-      setActiveFilters(prev => ({
-        ...prev,
-        [item]: !prev[item],
-      }));
+      const filterKey = item.toLowerCase().replace(/\s+/g, '_');
+      setFilters({
+        ...filters,
+        [filterKey]: !filters[filterKey]
+      });
     }
   };
 
@@ -64,16 +72,17 @@ export default function Filter({ categoryOptions }) {
   );
 
   return (
-    <div className="shadow">
+    <div className="shadow" ref={dropdownRef}>
       <div className="w-[90%] mx-auto flex flex-col gap-2 relative">
         {/* Filter bar */}
         <section className="flex items-center gap-2">
           <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide py-2">
             {filterItems.map(item => {
+              const filterKey = item.toLowerCase().replace(/\s+/g, '_');
               const isActive =
-                activeFilters[item] ||
+                filters[filterKey] ||
                 (item === "Category" &&
-                  (showCategoryDropdown || selectedCategories.length > 0));
+                  (showCategoryDropdown || filters.categories.length > 0));
               return (
                 <div key={item} className="relative">
                   <button
@@ -106,14 +115,14 @@ export default function Filter({ categoryOptions }) {
               />
               <button
                 onClick={() => setShowCategoryDropdown(false)}
-                className=" text-gray-500 hover:text-hijau-tua"
+                className="text-gray-500 hover:text-hijau-tua"
                 aria-label="Close dropdown"
               >
-                <IoClose className="text-xl "/>
+                <IoClose className="text-xl" />
               </button>
             </div>
             {filteredOptions.length > 0 ? (
-              filteredOptions.slice(0, 3).map(option => (
+              filteredOptions.map(option => (
                 <div
                   key={option}
                   onClick={() => handleSelectCategory(option)}
@@ -131,9 +140,9 @@ export default function Filter({ categoryOptions }) {
         )}
 
         {/* Selected categories */}
-        {selectedCategories.length > 0 && (
+        {filters.categories.length > 0 && (
           <div className="flex gap-2 mb-3 flex-wrap">
-            {selectedCategories.map(cat => (
+            {filters.categories.map(cat => (
               <div
                 key={cat}
                 className="flex items-center gap-1 bg-white rounded-full px-3 py-1 text-sm italic border-hijau-muda border-2"

@@ -12,6 +12,7 @@
     "@mapbox/polyline": "^1.2.1",
     "first-version": "file:",
     "framer-motion": "^12.7.4",
+    "haversine-distance": "^1.2.3",
     "jotai": "^2.12.3",
     "leaflet": "^1.9.4",
     "leaflet-routing-machine": "^3.2.12",

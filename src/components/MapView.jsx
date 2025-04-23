@@ -3,7 +3,7 @@
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, forwardRef, useImperativeHandle } from "react";
 import { IoIosArrowForward } from "react-icons/io";
 import { MdAccessTime } from "react-icons/md";
 import "leaflet-routing-machine";
@@ -172,7 +172,7 @@ function MapResizeController({ openMap }) {
   return null;
 }
 
-export default function MapView({ locations }) {
+const MapView = forwardRef(({ locations }, ref) => {
   const [userLocation, setUserLocation] = useState(null);
   const [route, setRoute] = useState(null);
   const routePolylineRef = useRef(null);
@@ -235,11 +235,18 @@ export default function MapView({ locations }) {
     iconAnchor: [24, 24],
   });
 
+  // This is the function that will be exposed via ref
   const calculateRoute = (destination, location) => {
+    console.log("calculateRoute called with:", destination, location);
     setSelectedDestination(destination);
-    setCurrentViewedLocation(location); // Set the currently viewed location
+    setCurrentViewedLocation(location);
     setOpenMap(true);
   };
+
+  // Expose the calculateRoute function via ref
+  useImperativeHandle(ref, () => ({
+    calculateRoute
+  }), []);
 
   const handleNext = () =>
     setLegendPage(prev => (prev === maxPage ? 0 : prev + 1));
@@ -422,7 +429,7 @@ export default function MapView({ locations }) {
                     </section>
                     <section>
                       <span className="text-sm text-gray-600">
-                        {currentViewedLocation.category} - 7,3 km
+                        {currentViewedLocation.category} - {currentViewedLocation.distance} km
                       </span>
                     </section>
                   </div>
@@ -485,14 +492,15 @@ export default function MapView({ locations }) {
                   alt={`${currentViewedLocation.name}`}
                   className="aspect-video h-[100px] flex-shrink-0 rounded"
                 />
-          
+              </div>
             </div>
-            </div>
-
-           
           </div>
         </div>
       )}
     </>
   );
-}
+});
+
+MapView.displayName = "MapView";
+
+export default MapView;
