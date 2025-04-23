@@ -120,9 +120,9 @@ const legendItems = [
   { icon: "blue", label: "Cafe" },
   { icon: "green", label: "Market" },
   { icon: "black", label: "Lokasi Anda" },
-  { icon: "orange", label: "Restoran" },
-  { icon: "red", label: "Toko" },
-  { icon: "violet", label: "Kantor" },
+  { icon: "orange", label: "Garden" },
+  { icon: "red", label: "Farm" },
+  { icon: "violet", label: "Greenhouse" },
 ];
 
 function LegendDropdown({ showLegend, currentPage }) {
@@ -222,6 +222,12 @@ const MapView = forwardRef(({ locations }, ref) => {
           ? "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png"
           : category === "Market"
           ? "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png"
+          : category === "Garden"
+          ? "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png"
+          : category === "Farm"
+          ? "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png"
+          : category === "Greenhouse"
+          ? "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png"
           : "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
       shadowUrl:
         "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
