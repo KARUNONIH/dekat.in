@@ -3,7 +3,7 @@ import { Search, Plus, User } from "lucide-react";
 
 export default function botomNavbar() {
   return (
-    <div className="fixed bottom-0 w-[480px] bg-white border-t border-gray-200 shadow-sm z-[999999]">
+    <div className="fixed bottom-0 w-full max-w-[480px] bg-white border-t border-gray-200 shadow-sm z-[999999]">
       <div className="flex justify-around items-center py-2">
         {/* Search Tab - Active */}
         <button className="flex flex-col items-center text-hijau-tua">
