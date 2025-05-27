@@ -20,7 +20,7 @@ export default function Place({ locations, handleGetRoute }) {
                   <div className="flex items-center mt-1 text-sm">
                     <Clock size={14} className="mr-1" />
                     <span>
-                      {location.openHour} - {location.closeHour} •{" "}
+                      {location.openHour.slice(0, -3)} - {location.closeHour.slice(0, -3)} •{" "}
                       {Math.round(location.startPrice / 1000)}K -{" "}
                       {Math.round(location.endPrice / 1000)}K
                     </span>
@@ -44,9 +44,7 @@ export default function Place({ locations, handleGetRoute }) {
                   <span className="font-bold">{location.rating}</span>
                 </div>
               </section>
-              <button
-                onClick={() => handleGetRoute(location)}
-              >
+              <button onClick={() => handleGetRoute(location)}>
                 <ChevronRight className="text-2xl" />
               </button>
             </div>

@@ -104,7 +104,7 @@ export default function Filter({ categoryOptions }) {
 
         {/* Dropdown with search */}
         {showCategoryDropdown && (
-          <div className="absolute top-[calc(100%+10px)] left-0 bg-white border rounded-md shadow-md z-[9999] w-full max-h-[300px] overflow-y-auto">
+          <div className="absolute top-[calc(100%+10px)] left-0 bg-white border rounded-md shadow-md z-[9999999] w-full max-h-[300px] overflow-y-auto">
             <div className="p-2 border-b gap-2 flex">
               <input
                 type="text"
