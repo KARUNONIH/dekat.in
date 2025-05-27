@@ -92,7 +92,7 @@ export default function TopNavbar({ onLocationSelect }) {
       <div className="flex items-center gap-4 py-4 w-[90%] mx-auto">
         <section>
           <img
-            src="/assets/logo/application-logo.png"
+            src="/assets/logo/logo.png"
             alt=""
             className="aspect-square w-[40px] rounded-full border-2"
           />
