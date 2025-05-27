@@ -23,10 +23,11 @@ export default function Login() {
   };
 
   const loginUser = async (loginData) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_DEKATIN}/api/login`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_DEKATIN_DEMO}/api/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+      'ngrok-skip-browser-warning': 'true',
       },
       body: JSON.stringify(loginData),
     });
